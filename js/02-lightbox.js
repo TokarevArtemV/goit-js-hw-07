@@ -3,10 +3,10 @@ import { galleryItems } from "./gallery-items.js";
 
 const gallery = document.querySelector(".gallery");
 
-const galleryMarkup = renderImg();
+const galleryMarkup = createMarkup();
 gallery.insertAdjacentHTML("afterbegin", galleryMarkup);
 
-function renderImg() {
+function createMarkup() {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `

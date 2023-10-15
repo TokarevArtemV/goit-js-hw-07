@@ -1,15 +1,17 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-
 const gallery = document.querySelector(".gallery");
+const murkup = renderImg();
+
+gallery.insertAdjacentHTML("afterbegin", murkup);
 gallery.addEventListener("click", openModal);
 
 function renderImg() {
-  const murkup = galleryItems.map(({ preview, original, description }) => {
-    return `<li class=gallery__item><a class="gallery__link" href="${original}"><img class=gallery__image src="${preview}" data-source="${original}" alt="${description}"/></a></li>`;
-  });
-
-  gallery.insertAdjacentHTML("afterbegin", murkup.join(""));
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `<li class=gallery__item><a class="gallery__link" href="${original}"><img class=gallery__image src="${preview}" data-source="${original}" alt="${description}"/></a></li>`;
+    })
+    .join("");
 }
 
 function openModal(event) {
@@ -19,9 +21,7 @@ function openModal(event) {
     return;
   }
   
-  const urlImg = galleryItems.find((elem) => {
-    return elem.description === event.target.alt;
-  }).original;
+  const urlImg = event.target.dataset.source;
 
   const imgGallary = basicLightbox.create(`<img src="${urlImg}">`, {
     onShow: (img) => {
@@ -35,5 +35,3 @@ function openModal(event) {
 
   imgGallary.show();
 }
-
-renderImg();
